@@ -1,0 +1,33 @@
+schema: spec-driven
+
+context: |
+  Domain language: use the terms defined in /CONTEXT.md exactly (Family, Member, Parent, Child,
+  Chore, Step, Chore Attempt, Restart, Abandoned, Base Points, Daily Minimum/Maximum, Day Result,
+  Settlement, Point Period, Baseline, Period Score, Wallet, Points Ledger, Adjustment, Reward,
+  Redemption, Excused Day, Family Day, Reminder Schedule, Daily/Step Reminder, Quiet Hours).
+  Respect the decisions in /docs/adr. Do not contradict them without proposing a new ADR.
+
+  Stack and architecture (decided, not up for re-design per change):
+  - .NET 10 backend, Clean Architecture: Domain, Application, Infrastructure, Api, plus a Worker host.
+    Domain has no dependencies on other layers.
+  - Application layer: CQRS commands/queries using the MIT-licensed `Mediator` source generator
+    (not MediatR), FluentValidation in pipeline behaviors, organised by feature folders.
+  - .NET Aspire AppHost orchestrates Api, Worker, PostgreSQL and the web client.
+  - PostgreSQL via EF Core (Npgsql). Multi-tenancy is shared tables with a FamilyId column on every
+    tenant-owned row and EF Core global query filters driven by the authenticated family claim.
+  - Auth: OpenIddict as OAuth 2.0/OIDC server with ASP.NET Identity storage in Postgres;
+    the SPA uses Authorization Code + PKCE. Usernames are globally unique.
+  - Scheduled jobs live in the separate Worker service using Quartz.NET with the Postgres job store.
+    Notifications are precomputed rows (due time + unique key) claimed by a dispatcher job.
+  - Client: TypeScript + React (Vite) installable PWA; notifications via Web Push (VAPID).
+  - i18n from day one: Swedish and English, per-Member language, for UI and notification text.
+  - All times/day boundaries use the Family's IANA time zone.
+  - Deployment: containers, self-hosted via Aspire-generated Docker Compose behind an HTTPS reverse proxy.
+
+rules:
+  proposal:
+    - State what is explicitly out of scope
+  design:
+    - Name which Clean Architecture layer each new component belongs to
+  tasks:
+    - Include automated tests for domain rules (xUnit) alongside the implementing task
