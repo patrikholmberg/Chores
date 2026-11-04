@@ -1,9 +1,10 @@
+using Chores.Infrastructure.Identity;
 using Chores.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chores.MigrationService;
 
-/// <summary>Applies pending EF Core migrations, then stops the host. A failure sets a non-zero exit code.</summary>
+/// <summary>Applies pending EF Core migrations and registers the OAuth client, then stops the host. A failure sets a non-zero exit code.</summary>
 public sealed class MigrationWorker(
     IServiceProvider serviceProvider,
     IHostApplicationLifetime lifetime,
@@ -18,6 +19,9 @@ public sealed class MigrationWorker(
 
             await db.Database.MigrateAsync(stoppingToken);
             logger.LogInformation("Database migrations applied");
+
+            await scope.ServiceProvider.GetRequiredService<OidcClientSeeder>().SeedAsync(stoppingToken);
+            logger.LogInformation("OAuth client registered");
         }
         catch (Exception ex)
         {

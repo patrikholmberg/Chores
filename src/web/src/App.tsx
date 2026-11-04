@@ -1,17 +1,43 @@
-import { useTranslation } from 'react-i18next'
-import { LanguageSwitcher } from './i18n/LanguageSwitcher'
-import { OfflineBanner } from './shell/OfflineBanner'
+import type { UserManager } from 'oidc-client-ts'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import { AuthCallback } from './auth/AuthCallback'
+import { AuthProvider } from './auth/AuthProvider'
+import { RequireAuth, RequireParent } from './auth/RequireAuth'
+import { callbackPath } from './auth/userManager'
+import { HomePage } from './pages/HomePage'
+import { LoginPage } from './pages/LoginPage'
+import { MemberFormPage } from './pages/MemberFormPage'
+import { MembersPage } from './pages/MembersPage'
+import { SignupPage } from './pages/SignupPage'
+import { Layout } from './shell/Layout'
 
-export default function App() {
-  const { t } = useTranslation()
-
+export function AppRoutes({ userManager }: { userManager: UserManager }) {
   return (
-    <main className="shell">
-      <OfflineBanner />
-      <header className="shell-header">
-        <h1>{t('app.title')}</h1>
-        <LanguageSwitcher />
-      </header>
-    </main>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path={callbackPath} element={<AuthCallback userManager={userManager} />} />
+        <Route element={<RequireAuth />}>
+          <Route index element={<HomePage />} />
+          <Route element={<RequireParent />}>
+            <Route path="/members" element={<MembersPage />} />
+            <Route path="/members/new" element={<MemberFormPage />} />
+            <Route path="/members/:id" element={<MemberFormPage />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<HomePage />} />
+      </Route>
+    </Routes>
+  )
+}
+
+export default function App({ userManager }: { userManager: UserManager }) {
+  return (
+    <AuthProvider userManager={userManager}>
+      <BrowserRouter>
+        <AppRoutes userManager={userManager} />
+      </BrowserRouter>
+    </AuthProvider>
   )
 }

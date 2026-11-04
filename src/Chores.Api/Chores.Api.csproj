@@ -1,6 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <ItemGroup>
+    <PackageReference Include="OpenIddict.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Chores.Infrastructure\Chores.Infrastructure.csproj" />
     <ProjectReference Include="..\Chores.ServiceDefaults\Chores.ServiceDefaults.csproj" />
   </ItemGroup>

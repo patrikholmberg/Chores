@@ -16,6 +16,9 @@ internal sealed class ValidationExceptionHandler(IProblemDetailsService problemD
         var errors = validation.Errors
             .GroupBy(e => e.PropertyName)
             .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorMessage).ToArray());
+        var codes = validation.Errors
+            .GroupBy(e => e.PropertyName)
+            .ToDictionary(g => g.Key, g => g.Select(e => e.ErrorCode).ToArray());
 
         httpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
@@ -27,6 +30,7 @@ internal sealed class ValidationExceptionHandler(IProblemDetailsService problemD
             {
                 Status = StatusCodes.Status400BadRequest,
                 Title = "One or more validation errors occurred.",
+                Extensions = { ["errorCodes"] = codes },
             },
         });
     }
