@@ -6,5 +6,5 @@ dist/
 .idea/
 *.user
 .env
-tasks/*
-openspec/*
+tasks*
+openspec*
