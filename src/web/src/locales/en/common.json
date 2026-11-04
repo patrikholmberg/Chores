@@ -1,0 +1,13 @@
+{
+  "app": {
+    "title": "Chores"
+  },
+  "offline": {
+    "message": "You are offline. Some things may not be up to date."
+  },
+  "language": {
+    "label": "Language",
+    "sv": "Svenska",
+    "en": "English"
+  }
+}

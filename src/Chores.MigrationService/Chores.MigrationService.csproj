@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Chores.Infrastructure\Chores.Infrastructure.csproj" />
+    <ProjectReference Include="..\Chores.ServiceDefaults\Chores.ServiceDefaults.csproj" />
+  </ItemGroup>
+
+</Project>

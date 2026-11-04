@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="NetArchTest.eNhancedEdition" />
+    <ProjectReference Include="..\..\src\Chores.Api\Chores.Api.csproj" />
+    <ProjectReference Include="..\..\src\Chores.Worker\Chores.Worker.csproj" />
+    <ProjectReference Include="..\..\src\Chores.MigrationService\Chores.MigrationService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

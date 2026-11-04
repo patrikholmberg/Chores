@@ -1,0 +1,13 @@
+{
+  "app": {
+    "title": "Sysslor"
+  },
+  "offline": {
+    "message": "Du är offline. Allt kanske inte är uppdaterat."
+  },
+  "language": {
+    "label": "Språk",
+    "sv": "Svenska",
+    "en": "English"
+  }
+}

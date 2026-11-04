@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Chores.Api/Chores.Api.csproj" />
+    <Project Path="src/Chores.AppHost/Chores.AppHost.csproj" />
+    <Project Path="src/Chores.Application/Chores.Application.csproj" />
+    <Project Path="src/Chores.Domain/Chores.Domain.csproj" />
+    <Project Path="src/Chores.Infrastructure/Chores.Infrastructure.csproj" />
+    <Project Path="src/Chores.MigrationService/Chores.MigrationService.csproj" />
+    <Project Path="src/Chores.ServiceDefaults/Chores.ServiceDefaults.csproj" />
+    <Project Path="src/Chores.Worker/Chores.Worker.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Chores.Api.Tests/Chores.Api.Tests.csproj" />
+    <Project Path="tests/Chores.Application.Tests/Chores.Application.Tests.csproj" />
+    <Project Path="tests/Chores.Architecture.Tests/Chores.Architecture.Tests.csproj" />
+    <Project Path="tests/Chores.Domain.Tests/Chores.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
