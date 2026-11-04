@@ -18,6 +18,7 @@
   },
   "nav": {
     "home": "Hem",
+    "chores": "Sysslor",
     "members": "Medlemmar",
     "toggle": "Visa meny"
   },
@@ -75,9 +76,62 @@
     "removeTitle": "Ta bort {{name}}?",
     "removeBody": "Hen kan inte längre logga in och användarnamnet blir ledigt. Historiken sparas."
   },
+  "chores": {
+    "title": "Sysslor",
+    "empty": "Det finns inga sysslor än.",
+    "emptyParent": "Det finns inga sysslor än. Lägg till den första!",
+    "new": "Ny syssla",
+    "archived": "Arkiverade",
+    "back": "Sysslor",
+    "multiplier": "×{{value}}",
+    "multiplierLabel": "Värd {{value}} gånger baspoängen",
+    "steps_one": "{{count}} steg",
+    "steps_other": "{{count}} steg",
+    "edit": "Ändra",
+    "archive": "Arkivera",
+    "archiveTitle": "Arkivera {{title}}?",
+    "archiveBody": "Sysslan försvinner från listan. Sysslor som redan har påbörjats kan fortfarande slutföras, och du kan återställa den senare.",
+    "archivedNotice": "Den här sysslan är arkiverad och finns inte i listan.",
+    "restore": "Återställ",
+    "reminder": "Påminnelse {{delay}} efter föregående steg",
+    "repeats": "upprepas var {{interval}}",
+    "archivedTitle": "Arkiverade sysslor",
+    "archivedEmpty": "Inga sysslor är arkiverade.",
+    "restored": "{{title}} finns i listan igen.",
+    "newTitle": "Ny syssla",
+    "editTitle": "Ändra {{title}}",
+    "fieldTitle": "Titel",
+    "fieldDescription": "Beskrivning",
+    "descriptionHint": "Valfri.",
+    "fieldMultiplier": "Poängmultiplikator",
+    "multiplierHint": "Ett heltal från 1 till 100. Sysslan är värd så många baspoäng.",
+    "stepsTitle": "Steg",
+    "stepsHint": "De flesta sysslor har ett enda steg. Stegen görs i den här ordningen.",
+    "stepNumber": "Steg {{number}}",
+    "stepTitle": "Vad ska göras",
+    "addStep": "Lägg till steg",
+    "moveUp": "Flytta steg {{number}} uppåt",
+    "moveDown": "Flytta steg {{number}} nedåt",
+    "removeStep": "Ta bort steg {{number}}",
+    "reminderDelay": "Påminnelse efter föregående steg",
+    "reminderDelayHint": "Valfri. Från 1 minut till 7 dygn.",
+    "repeatInterval": "Upprepa påminnelsen var",
+    "repeatIntervalHint": "Valfri. Från 15 minuter till 7 dygn, tills steget är gjort.",
+    "hours": "timmar",
+    "minutes": "minuter",
+    "delayCleared": "{{title}} är nu första steget, så dess påminnelse togs bort.",
+    "create": "Skapa syssla",
+    "reload": "Ladda om"
+  },
+  "duration": {
+    "days": "{{count}} d",
+    "hours": "{{count}} tim",
+    "minutes": "{{count}} min"
+  },
   "home": {
     "greeting": "Hej {{name}}!",
-    "family": "Familj: {{family}}"
+    "family": "Familj: {{family}}",
+    "library": "Se sysslorna"
   },
   "errors": {
     "generic": "Något gick fel. Försök igen.",
@@ -118,6 +172,22 @@
       "email_not_allowed": "Ett barn kan inte ha en e-postadress."
     },
     "concurrency_conflict": "Någon annan ändrade samtidigt. Ladda om och försök igen.",
-    "forbidden": "Bara en förälder kan göra det här."
+    "forbidden": "Bara en förälder kan göra det här.",
+    "chore": {
+      "title_invalid": "En titel på 1 till 100 tecken krävs.",
+      "description_too_long": "Beskrivningen får vara högst 1000 tecken.",
+      "multiplier_out_of_range": "Använd ett heltal från 1 till 100.",
+      "no_steps": "En syssla behöver minst ett steg.",
+      "too_many_steps": "En syssla kan ha högst 20 steg.",
+      "archived": "Sysslan har arkiverats. Återställ den innan du ändrar den."
+    },
+    "step": {
+      "title_invalid": "Ett steg behöver en titel på 1 till 100 tecken.",
+      "description_too_long": "Beskrivningen får vara högst 1000 tecken.",
+      "first_has_delay": "Första steget kan inte ha en påminnelse.",
+      "delay_out_of_range": "Använd 1 minut till 7 dygn.",
+      "interval_out_of_range": "Använd 15 minuter till 7 dygn.",
+      "interval_without_delay": "Ställ in en påminnelse innan den upprepas."
+    }
   }
 }

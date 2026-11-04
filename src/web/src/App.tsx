@@ -4,6 +4,10 @@ import { AuthCallback } from './auth/AuthCallback'
 import { AuthProvider } from './auth/AuthProvider'
 import { RequireAuth, RequireParent } from './auth/RequireAuth'
 import { callbackPath } from './auth/userManager'
+import { ArchivedChoresPage } from './pages/ArchivedChoresPage'
+import { ChoreFormPage } from './pages/ChoreFormPage'
+import { ChorePage } from './pages/ChorePage'
+import { ChoresPage } from './pages/ChoresPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { MemberFormPage } from './pages/MemberFormPage'
@@ -20,7 +24,12 @@ export function AppRoutes({ userManager }: { userManager: UserManager }) {
         <Route path={callbackPath} element={<AuthCallback userManager={userManager} />} />
         <Route element={<RequireAuth />}>
           <Route index element={<HomePage />} />
+          <Route path="/chores" element={<ChoresPage />} />
+          <Route path="/chores/:id" element={<ChorePage />} />
           <Route element={<RequireParent />}>
+            <Route path="/chores/new" element={<ChoreFormPage />} />
+            <Route path="/chores/archived" element={<ArchivedChoresPage />} />
+            <Route path="/chores/:id/edit" element={<ChoreFormPage />} />
             <Route path="/members" element={<MembersPage />} />
             <Route path="/members/new" element={<MemberFormPage />} />
             <Route path="/members/:id" element={<MemberFormPage />} />

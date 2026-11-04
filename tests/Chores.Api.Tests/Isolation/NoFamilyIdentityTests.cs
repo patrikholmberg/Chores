@@ -1,5 +1,6 @@
 using Chores.Api.Tests.Infrastructure;
 using Chores.Application.Common.Persistence;
+using Chores.Domain.ChoreLibrary;
 using Chores.Domain.Families;
 using Chores.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
@@ -15,12 +16,16 @@ public class NoFamilyIdentityTests(PostgresApiFactory factory)
     [Fact]
     public async Task Nothing_family_owned_can_be_read()
     {
-        await factory.Services.SeedFamilyAsync();
+        var seeded = await factory.Services.SeedFamilyAsync();
+        await factory.Services.SeedChoreAsync(seeded.Id);
         await using var scope = factory.Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<ChoresDbContext>();
 
         Assert.False(await db.Families.AnyAsync(Ct));
         Assert.False(await db.Members.AnyAsync(Ct));
+        Assert.False(await db.Chores.AnyAsync(Ct));
+        Assert.False(await db.Set<Step>().AnyAsync(Ct));
+        Assert.Empty(await scope.ServiceProvider.GetRequiredService<IChoreRepository>().ListAsync(archived: false, Ct));
         Assert.Null(await scope.ServiceProvider.GetRequiredService<IFamilyRepository>().GetCurrentAsync(Ct));
     }
 

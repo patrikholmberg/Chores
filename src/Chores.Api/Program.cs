@@ -37,6 +37,7 @@ app.MapAccountEndpoints();
 app.MapConnectEndpoints();
 app.MapMeEndpoints();
 app.MapMemberEndpoints();
+app.MapChoreEndpoints();
 
 app.Run();
 

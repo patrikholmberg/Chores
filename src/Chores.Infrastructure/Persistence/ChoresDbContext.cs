@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Chores.Application.Common.Tenancy;
+using Chores.Domain.ChoreLibrary;
 using Chores.Domain.Common;
 using Chores.Domain.Families;
 using Chores.Infrastructure.Captcha;
@@ -26,6 +27,8 @@ public sealed class ChoresDbContext(DbContextOptions<ChoresDbContext> options, I
     public DbSet<Family> Families => Set<Family>();
 
     public DbSet<Member> Members => Set<Member>();
+
+    public DbSet<Chore> Chores => Set<Chore>();
 
     public DbSet<DataProtectionKey> DataProtectionKeys => Set<DataProtectionKey>();
 

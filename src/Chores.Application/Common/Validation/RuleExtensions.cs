@@ -36,6 +36,11 @@ public static class RuleExtensions
             .EmailAddress().WithErrorCode(ValidationCodes.EmailInvalid).WithMessage("Enter a valid email address.")
             .When(c => role(c) == Role.Parent, ApplyConditionTo.CurrentValidator);
 
+    /// <summary>A required title of at most <paramref name="maxLength"/> characters.</summary>
+    public static IRuleBuilderOptions<T, string> Title<T>(this IRuleBuilder<T, string> rule, int maxLength) =>
+        rule.NotEmpty().WithErrorCode(ValidationCodes.Required).WithMessage("A title is required.")
+            .MaximumLength(maxLength).WithErrorCode(ValidationCodes.TooLong);
+
     public static IRuleBuilderOptions<T, string?> DisplayName<T>(this IRuleBuilder<T, string?> rule) =>
         rule.MaximumLength(Member.DisplayNameMaxLength).WithErrorCode(ValidationCodes.TooLong);
 
