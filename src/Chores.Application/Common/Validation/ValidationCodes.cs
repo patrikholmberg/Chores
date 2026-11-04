@@ -1,3 +1,5 @@
+using Chores.Domain.ChoreLibrary;
+
 namespace Chores.Application.Common.Validation;
 
 /// <summary>Stable error codes returned with validation problems, so clients can show translated messages.</summary>
@@ -15,4 +17,13 @@ public static class ValidationCodes
     public const string LanguageInvalid = "language.invalid";
     public const string RoleInvalid = "role.invalid";
     public const string CaptchaInvalid = "captcha.invalid";
+
+    // The Chore codes are the Domain's own, so a client translates a rule the same way whichever layer reports it.
+    public const string MultiplierOutOfRange = ChoreErrorCodes.MultiplierOutOfRange;
+    public const string NoSteps = ChoreErrorCodes.NoSteps;
+    public const string TooManySteps = ChoreErrorCodes.TooManySteps;
+    public const string DelayOnFirstStep = ChoreErrorCodes.FirstStepHasDelay;
+    public const string DelayOutOfRange = ChoreErrorCodes.DelayOutOfRange;
+    public const string IntervalOutOfRange = ChoreErrorCodes.IntervalOutOfRange;
+    public const string IntervalWithoutDelay = ChoreErrorCodes.IntervalWithoutDelay;
 }

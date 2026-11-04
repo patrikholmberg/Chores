@@ -22,6 +22,78 @@ namespace Chores.Infrastructure.Persistence.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("Chores.Domain.ChoreLibrary.Chore", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset?>("ArchivedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<Guid>("FamilyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("PointMultiplier")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Revision")
+                        .IsConcurrencyToken()
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FamilyId");
+
+                    b.ToTable("Chores", (string)null);
+                });
+
+            modelBuilder.Entity("Chores.Domain.ChoreLibrary.Step", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ChoreId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<Guid>("FamilyId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
+                    b.Property<TimeSpan?>("ReminderDelay")
+                        .HasColumnType("interval");
+
+                    b.Property<TimeSpan?>("RepeatInterval")
+                        .HasColumnType("interval");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChoreId");
+
+                    b.HasIndex("FamilyId");
+
+                    b.ToTable("ChoreSteps", (string)null);
+                });
+
             modelBuilder.Entity("Chores.Domain.Families.Family", b =>
                 {
                     b.Property<Guid>("Id")
@@ -459,6 +531,24 @@ namespace Chores.Infrastructure.Persistence.Migrations
                     b.ToTable("OpenIddictTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Chores.Domain.ChoreLibrary.Chore", b =>
+                {
+                    b.HasOne("Chores.Domain.Families.Family", null)
+                        .WithMany()
+                        .HasForeignKey("FamilyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Chores.Domain.ChoreLibrary.Step", b =>
+                {
+                    b.HasOne("Chores.Domain.ChoreLibrary.Chore", null)
+                        .WithMany("Steps")
+                        .HasForeignKey("ChoreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Chores.Domain.Families.Member", b =>
                 {
                     b.HasOne("Chores.Domain.Families.Family", null)
@@ -526,6 +616,11 @@ namespace Chores.Infrastructure.Persistence.Migrations
                     b.Navigation("Application");
 
                     b.Navigation("Authorization");
+                });
+
+            modelBuilder.Entity("Chores.Domain.ChoreLibrary.Chore", b =>
+                {
+                    b.Navigation("Steps");
                 });
 
             modelBuilder.Entity("Chores.Domain.Families.Family", b =>

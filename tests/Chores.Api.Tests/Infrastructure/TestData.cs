@@ -1,6 +1,7 @@
 using Chores.Application.Common.Identity;
 using Chores.Application.Common.Persistence;
 using Chores.Application.Common.Tenancy;
+using Chores.Domain.ChoreLibrary;
 using Chores.Domain.Families;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -67,5 +68,26 @@ public static class TestData
 
         await provider.GetRequiredService<IUnitOfWork>().SaveChangesAsync(CancellationToken.None);
         return new SeededFamily(familyId, parent, child);
+    }
+
+    /// <summary>The Steps of the spec's "Wash clothes" example: 90 minutes to hang (repeating every 30), 48 hours to collect.</summary>
+    public static StepDefinition[] WashClothesSteps() =>
+    [
+        new("Wash clothes", null, null, null),
+        new("Hang clothes", null, TimeSpan.FromMinutes(90), TimeSpan.FromMinutes(30)),
+        new("Collect clothes", null, TimeSpan.FromHours(48), null),
+    ];
+
+    /// <summary>Adds a Chore with the "Wash clothes" Steps to a seeded Family.</summary>
+    public static async Task<Guid> SeedChoreAsync(this IServiceProvider services, Guid familyId, string title = "Wash clothes")
+    {
+        await using var scope = services.CreateAsyncScope();
+        var provider = scope.ServiceProvider;
+        using var _ = provider.GetRequiredService<TenantContext>().BeginScope(familyId);
+
+        var chore = Chore.Create(Guid.CreateVersion7(), familyId, title, null, 1, WashClothesSteps());
+        provider.GetRequiredService<IChoreRepository>().Add(chore);
+        await provider.GetRequiredService<IUnitOfWork>().SaveChangesAsync(CancellationToken.None);
+        return chore.Id;
     }
 }

@@ -18,6 +18,7 @@
   },
   "nav": {
     "home": "Home",
+    "chores": "Chores",
     "members": "Members",
     "toggle": "Show menu"
   },
@@ -75,9 +76,62 @@
     "removeTitle": "Remove {{name}}?",
     "removeBody": "They can no longer sign in, and their username becomes free. Their history is kept."
   },
+  "chores": {
+    "title": "Chores",
+    "empty": "There are no chores yet.",
+    "emptyParent": "There are no chores yet. Add the first one!",
+    "new": "New chore",
+    "archived": "Archived",
+    "back": "Chores",
+    "multiplier": "×{{value}}",
+    "multiplierLabel": "Worth {{value}} times the base points",
+    "steps_one": "{{count}} step",
+    "steps_other": "{{count}} steps",
+    "edit": "Edit",
+    "archive": "Archive",
+    "archiveTitle": "Archive {{title}}?",
+    "archiveBody": "The chore leaves the library. Chores already started can still be finished, and you can restore it later.",
+    "archivedNotice": "This chore is archived and not in the library.",
+    "restore": "Restore",
+    "reminder": "Reminder {{delay}} after the previous step",
+    "repeats": "repeats every {{interval}}",
+    "archivedTitle": "Archived chores",
+    "archivedEmpty": "No chores are archived.",
+    "restored": "{{title}} is back in the library.",
+    "newTitle": "New chore",
+    "editTitle": "Edit {{title}}",
+    "fieldTitle": "Title",
+    "fieldDescription": "Description",
+    "descriptionHint": "Optional.",
+    "fieldMultiplier": "Point multiplier",
+    "multiplierHint": "A whole number from 1 to 100. The chore is worth this many base points.",
+    "stepsTitle": "Steps",
+    "stepsHint": "Most chores have a single step. Steps are done in this order.",
+    "stepNumber": "Step {{number}}",
+    "stepTitle": "What to do",
+    "addStep": "Add step",
+    "moveUp": "Move step {{number}} up",
+    "moveDown": "Move step {{number}} down",
+    "removeStep": "Remove step {{number}}",
+    "reminderDelay": "Reminder after the previous step",
+    "reminderDelayHint": "Optional. From 1 minute to 7 days.",
+    "repeatInterval": "Repeat the reminder every",
+    "repeatIntervalHint": "Optional. From 15 minutes to 7 days, until the step is done.",
+    "hours": "hours",
+    "minutes": "minutes",
+    "delayCleared": "{{title}} is now the first step, so its reminder was removed.",
+    "create": "Create chore",
+    "reload": "Reload"
+  },
+  "duration": {
+    "days": "{{count}} d",
+    "hours": "{{count}} h",
+    "minutes": "{{count}} min"
+  },
   "home": {
     "greeting": "Hi {{name}}!",
-    "family": "Family: {{family}}"
+    "family": "Family: {{family}}",
+    "library": "See the chores"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -118,6 +172,22 @@
       "email_not_allowed": "A child cannot have an email address."
     },
     "concurrency_conflict": "Someone else changed this at the same time. Reload and try again.",
-    "forbidden": "Only a parent can do this."
+    "forbidden": "Only a parent can do this.",
+    "chore": {
+      "title_invalid": "A title of 1 to 100 characters is required.",
+      "description_too_long": "The description can be at most 1000 characters.",
+      "multiplier_out_of_range": "Use a whole number from 1 to 100.",
+      "no_steps": "A chore needs at least one step.",
+      "too_many_steps": "A chore can have at most 20 steps.",
+      "archived": "This chore has been archived. Restore it before editing."
+    },
+    "step": {
+      "title_invalid": "A step needs a title of 1 to 100 characters.",
+      "description_too_long": "The description can be at most 1000 characters.",
+      "first_has_delay": "The first step cannot have a reminder.",
+      "delay_out_of_range": "Use 1 minute to 7 days.",
+      "interval_out_of_range": "Use 15 minutes to 7 days.",
+      "interval_without_delay": "Set a reminder before repeating it."
+    }
   }
 }

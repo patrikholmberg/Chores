@@ -38,6 +38,11 @@ export function Layout() {
                     {t('nav.home')}
                   </NavLink>
                 </li>
+                <li className="nav-item">
+                  <NavLink className="nav-link" to="/chores">
+                    {t('nav.chores')}
+                  </NavLink>
+                </li>
                 {member?.role === 'parent' && (
                   <li className="nav-item">
                     <NavLink className="nav-link" to="/members">

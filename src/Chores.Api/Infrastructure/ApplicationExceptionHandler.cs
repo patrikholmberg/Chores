@@ -23,6 +23,8 @@ internal sealed class ApplicationExceptionHandler(IProblemDetailsService problem
             ForbiddenException => (StatusCodes.Status403Forbidden, exception.Message, "forbidden"),
             DomainRuleViolation rule => (StatusCodes.Status409Conflict, rule.Message, rule.Code),
             ConcurrencyConflictException => (StatusCodes.Status409Conflict, exception.Message, "concurrency_conflict"),
+            // A body that does not bind, such as a fractional number for a whole-number field.
+            BadHttpRequestException badRequest => (badRequest.StatusCode, "The request could not be read.", null),
             _ => null,
         };
         if (problem is not { } p)

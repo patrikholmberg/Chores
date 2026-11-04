@@ -58,6 +58,7 @@ public static class DependencyInjection
         services.AddScoped<OperatorPasswordReset>();
         services.AddScoped<IMemberCredentials, MemberCredentials>();
         services.AddScoped<IFamilyRepository, FamilyRepository>();
+        services.AddScoped<IChoreRepository, ChoreRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDataProtection()
