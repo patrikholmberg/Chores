@@ -1,4 +1,6 @@
+using Chores.Domain.ChoreAttempts;
 using Chores.Domain.ChoreLibrary;
+using Chores.Domain.Families;
 
 namespace Chores.Application.Common.Validation;
 
@@ -26,4 +28,9 @@ public static class ValidationCodes
     public const string DelayOutOfRange = ChoreErrorCodes.DelayOutOfRange;
     public const string IntervalOutOfRange = ChoreErrorCodes.IntervalOutOfRange;
     public const string IntervalWithoutDelay = ChoreErrorCodes.IntervalWithoutDelay;
+
+    // Likewise for the Family settings and Chore Attempts.
+    public const string BasePointsOutOfRange = FamilyErrorCodes.BasePointsOutOfRange;
+    public const string AttemptWindowOutOfRange = FamilyErrorCodes.AttemptWindowOutOfRange;
+    public const string RejectionReasonTooLong = AttemptErrorCodes.RejectionReasonTooLong;
 }

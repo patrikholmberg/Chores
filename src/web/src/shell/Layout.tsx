@@ -44,11 +44,18 @@ export function Layout() {
                   </NavLink>
                 </li>
                 {member?.role === 'parent' && (
-                  <li className="nav-item">
-                    <NavLink className="nav-link" to="/members">
-                      {t('nav.members')}
-                    </NavLink>
-                  </li>
+                  <>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/members">
+                        {t('nav.members')}
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to="/settings">
+                        {t('nav.settings')}
+                      </NavLink>
+                    </li>
+                  </>
                 )}
               </ul>
             )}

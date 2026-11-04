@@ -7,4 +7,6 @@ public static class FamilyErrorCodes
     public const string EmailRequired = "member.email_required";
     public const string EmailNotAllowed = "member.email_not_allowed";
     public const string MemberNotFound = "member.not_found";
+    public const string BasePointsOutOfRange = "family.base_points_out_of_range";
+    public const string AttemptWindowOutOfRange = "family.attempt_window_out_of_range";
 }

@@ -20,7 +20,8 @@
     "home": "Hem",
     "chores": "Sysslor",
     "members": "Medlemmar",
-    "toggle": "Visa meny"
+    "toggle": "Visa meny",
+    "settings": "Inställningar"
   },
   "auth": {
     "signOut": "Logga ut",
@@ -131,7 +132,14 @@
   "home": {
     "greeting": "Hej {{name}}!",
     "family": "Familj: {{family}}",
-    "library": "Se sysslorna"
+    "library": "Se sysslorna",
+    "today": "Idag",
+    "inProgress": "Pågår",
+    "nothingInProgress": "Inget pågår just nu.",
+    "doneToday": "Klart idag",
+    "doChore": "Gör en syssla",
+    "recent": "Senaste sysslorna",
+    "noRecent": "Inga sysslor har gjorts nyligen."
   },
   "errors": {
     "generic": "Något gick fel. Försök igen.",
@@ -188,6 +196,59 @@
       "delay_out_of_range": "Använd 1 minut till 7 dygn.",
       "interval_out_of_range": "Använd 15 minuter till 7 dygn.",
       "interval_without_delay": "Ställ in en påminnelse innan den upprepas."
+    },
+    "attempt": {
+      "not_open": "Sysslan pågår inte längre.",
+      "not_current_step": "Det steget är inte det aktuella.",
+      "not_complete": "Bara en klar syssla kan underkännas.",
+      "rejection_window_closed": "Det är för sent att underkänna sysslan.",
+      "rejection_reason_too_long": "Anledningen får vara högst 500 tecken.",
+      "chore_archived": "Sysslan har arkiverats."
+    },
+    "family": {
+      "base_points_out_of_range": "Ange ett heltal från 1 till 1000.",
+      "attempt_window_out_of_range": "Ange 1 till 30 dagar."
     }
+  },
+  "settings": {
+    "title": "Familjeinställningar",
+    "basePoints": "Baspoäng",
+    "basePointsHint": "Vad en vanlig syssla är värd, från 1 till 1000. En syssla med multiplikator ×2 är värd dubbelt så mycket.",
+    "attemptWindow": "Dagar att slutföra en syssla",
+    "attemptWindowHint": "En syssla som inte slutförs inom så här många dagar efter starten överges och ger inga poäng. Från 1 till 30. Gäller sysslor som påbörjas från och med nu.",
+    "saved": "Inställningarna sparades."
+  },
+  "attempts": {
+    "start": "Börja",
+    "state": {
+      "open": "Pågår",
+      "complete": "Klar",
+      "rejected": "Underkänd",
+      "abandoned": "Övergiven"
+    },
+    "startedOn": "Påbörjad {{date}}",
+    "expires": "Slutför senast {{date}}",
+    "stepsTitle": "Steg",
+    "done": "Klart",
+    "doneAt": "Klart {{time}}",
+    "current": "Nu: {{title}}",
+    "restart": "Börja om",
+    "restartTitle": "Börja om {{title}}?",
+    "restartBody": "Alla steg blir ogjorda igen. Sysslan räknas fortfarande till dagen du började den.",
+    "cancel": "Avbryt sysslan",
+    "cancelTitle": "Avbryt {{title}}?",
+    "cancelBody": "Sysslan tas bort och ger inga poäng.",
+    "reject": "Underkänn",
+    "rejectTitle": "Underkänn {{title}}?",
+    "rejectReason": "Anledning",
+    "rejectReasonHint": "Valfri. {{name}} får se den.",
+    "rejectUntil": "Kan underkännas till {{date}}",
+    "rejectedBy": "Underkänd av {{name}}.",
+    "rejectedReason": "Anledning: {{reason}}",
+    "abandonedNotice": "Sysslan blev inte klar i tid och ger inga poäng.",
+    "points_one": "{{count}} poäng",
+    "points_other": "{{count}} poäng",
+    "back": "Hem",
+    "reloaded": "Sysslan ändrades någon annanstans och har laddats om."
   }
 }

@@ -172,4 +172,50 @@ public class FamilyTests
         Assert.Equal("Nova", nova.DisplayName);
         Assert.Equal(PreferredLanguage.English, nova.PreferredLanguage);
     }
+
+    [Fact]
+    public void A_new_family_has_the_default_settings()
+    {
+        var family = NewFamily();
+
+        Assert.Equal(10, family.BasePoints);
+        Assert.Equal(TimeSpan.FromDays(7), family.AttemptWindow);
+    }
+
+    [Fact]
+    public void ChangeSettings_applies_valid_values_without_a_new_revision()
+    {
+        var family = NewFamily();
+
+        family.ChangeSettings(5, 3);
+
+        Assert.Equal(5, family.BasePoints);
+        Assert.Equal(TimeSpan.FromDays(3), family.AttemptWindow);
+        Assert.Equal(0, family.Revision);
+    }
+
+    [Theory]
+    [InlineData(1, 1)]
+    [InlineData(1000, 30)]
+    public void ChangeSettings_accepts_the_bounds(int basePoints, int days)
+    {
+        var family = NewFamily();
+
+        family.ChangeSettings(basePoints, days);
+
+        Assert.Equal(basePoints, family.BasePoints);
+        Assert.Equal(TimeSpan.FromDays(days), family.AttemptWindow);
+    }
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(1001)]
+    public void Base_points_out_of_range_are_refused(int basePoints) =>
+        AssertViolation(FamilyErrorCodes.BasePointsOutOfRange, () => NewFamily().ChangeSettings(basePoints, 7));
+
+    [Theory]
+    [InlineData(0)]
+    [InlineData(31)]
+    public void An_attempt_window_out_of_range_is_refused(int days) =>
+        AssertViolation(FamilyErrorCodes.AttemptWindowOutOfRange, () => NewFamily().ChangeSettings(10, days));
 }

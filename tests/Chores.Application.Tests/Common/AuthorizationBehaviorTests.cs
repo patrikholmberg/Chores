@@ -10,6 +10,8 @@ public class AuthorizationBehaviorTests
 {
     private sealed record ParentCommand : ICommand<string>, IParentOnly;
 
+    private sealed record ChildCommand : ICommand<string>, IChildOnly;
+
     private sealed record AnyoneQuery : IQuery<string>;
 
     private static async Task<(bool Invoked, Exception? Error)> SendAsync<TMessage>(TMessage message, Role? role)
@@ -49,6 +51,26 @@ public class AuthorizationBehaviorTests
     {
         var (invoked, _) = await SendAsync(new AnyoneQuery(), Role.Child);
 
+        Assert.True(invoked);
+    }
+
+    [Theory]
+    [InlineData(Role.Parent)]
+    [InlineData(null)]
+    public async Task Non_children_are_refused_child_only_messages_before_the_handler_runs(Role? role)
+    {
+        var (invoked, error) = await SendAsync(new ChildCommand(), role);
+
+        Assert.IsType<ForbiddenException>(error);
+        Assert.False(invoked);
+    }
+
+    [Fact]
+    public async Task A_child_reaches_a_child_only_handler()
+    {
+        var (invoked, error) = await SendAsync(new ChildCommand(), Role.Child);
+
+        Assert.Null(error);
         Assert.True(invoked);
     }
 }

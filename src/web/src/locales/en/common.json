@@ -20,7 +20,8 @@
     "home": "Home",
     "chores": "Chores",
     "members": "Members",
-    "toggle": "Show menu"
+    "toggle": "Show menu",
+    "settings": "Settings"
   },
   "auth": {
     "signOut": "Sign out",
@@ -131,7 +132,14 @@
   "home": {
     "greeting": "Hi {{name}}!",
     "family": "Family: {{family}}",
-    "library": "See the chores"
+    "library": "See the chores",
+    "today": "Today",
+    "inProgress": "In progress",
+    "nothingInProgress": "Nothing in progress.",
+    "doneToday": "Finished today",
+    "doChore": "Do a chore",
+    "recent": "Recent chores",
+    "noRecent": "No chores have been done recently."
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",
@@ -188,6 +196,59 @@
       "delay_out_of_range": "Use 1 minute to 7 days.",
       "interval_out_of_range": "Use 15 minutes to 7 days.",
       "interval_without_delay": "Set a reminder before repeating it."
+    },
+    "attempt": {
+      "not_open": "This chore is no longer in progress.",
+      "not_current_step": "That step is not the current one.",
+      "not_complete": "Only a complete chore can be rejected.",
+      "rejection_window_closed": "It is too late to reject this chore.",
+      "rejection_reason_too_long": "The reason can be at most 500 characters.",
+      "chore_archived": "This chore has been archived."
+    },
+    "family": {
+      "base_points_out_of_range": "Use a whole number from 1 to 1000.",
+      "attempt_window_out_of_range": "Use 1 to 30 days."
     }
+  },
+  "settings": {
+    "title": "Family settings",
+    "basePoints": "Base points",
+    "basePointsHint": "What one standard chore is worth, from 1 to 1000. A chore with multiplier ×2 is worth twice this.",
+    "attemptWindow": "Days to finish a chore",
+    "attemptWindowHint": "A chore not finished within this many days of starting is abandoned and earns nothing. From 1 to 30. Applies to chores started from now on.",
+    "saved": "The settings were saved."
+  },
+  "attempts": {
+    "start": "Start",
+    "state": {
+      "open": "In progress",
+      "complete": "Complete",
+      "rejected": "Rejected",
+      "abandoned": "Abandoned"
+    },
+    "startedOn": "Started {{date}}",
+    "expires": "Finish by {{date}}",
+    "stepsTitle": "Steps",
+    "done": "Done",
+    "doneAt": "Done {{time}}",
+    "current": "Now: {{title}}",
+    "restart": "Start over",
+    "restartTitle": "Start {{title}} over?",
+    "restartBody": "Every step goes back to not done. The chore still counts for the day you started it.",
+    "cancel": "Cancel chore",
+    "cancelTitle": "Cancel {{title}}?",
+    "cancelBody": "The chore is removed and earns no points.",
+    "reject": "Reject",
+    "rejectTitle": "Reject {{title}}?",
+    "rejectReason": "Reason",
+    "rejectReasonHint": "Optional. {{name}} will see it.",
+    "rejectUntil": "Can be rejected until {{date}}",
+    "rejectedBy": "Rejected by {{name}}.",
+    "rejectedReason": "Reason: {{reason}}",
+    "abandonedNotice": "This chore was not finished in time and earns no points.",
+    "points_one": "{{count}} point",
+    "points_other": "{{count}} points",
+    "back": "Home",
+    "reloaded": "The chore was changed elsewhere and has been reloaded."
   }
 }

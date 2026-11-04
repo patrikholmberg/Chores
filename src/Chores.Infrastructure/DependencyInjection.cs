@@ -59,6 +59,7 @@ public static class DependencyInjection
         services.AddScoped<IMemberCredentials, MemberCredentials>();
         services.AddScoped<IFamilyRepository, FamilyRepository>();
         services.AddScoped<IChoreRepository, ChoreRepository>();
+        services.AddScoped<IChoreAttemptRepository, ChoreAttemptRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         services.AddDataProtection()

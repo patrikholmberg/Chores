@@ -113,6 +113,10 @@ _Avoid_: Reset, redo
 The state of a Chore Attempt that expired unfinished after the Family's attempt window. It never earns points.
 _Avoid_: Cancelled, failed
 
+**Cancel**:
+Removing an open Chore Attempt, for example one started by mistake. The Child who started it or any Parent may cancel it; it leaves no trace and never earns points. Unlike Abandoned, it is a deliberate act.
+_Avoid_: Delete, discard
+
 **Redemption**:
 A Child's request to exchange Wallet points for a Reward. Its price is held when requested, then deducted if a Parent approves or released if the Parent rejects.
 _Avoid_: Purchase, order

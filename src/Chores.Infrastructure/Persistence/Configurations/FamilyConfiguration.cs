@@ -15,6 +15,10 @@ internal sealed class FamilyConfiguration : IEntityTypeConfiguration<Family>
         builder.Property(f => f.TimeZone)
             .HasConversion(tz => tz.Id, id => FamilyTimeZone.Create(id))
             .HasMaxLength(64);
+        builder.Property(f => f.BasePoints).HasDefaultValue(Family.DefaultBasePoints);
+        builder.Property(f => f.AttemptWindow)
+            .HasColumnType("interval")
+            .HasDefaultValue(TimeSpan.FromDays(Family.DefaultAttemptWindowDays));
         builder.Property(f => f.Revision).IsConcurrencyToken();
 
         builder.HasMany(f => f.Members).WithOne().HasForeignKey(m => m.FamilyId).OnDelete(DeleteBehavior.Restrict);

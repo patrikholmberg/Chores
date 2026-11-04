@@ -6,6 +6,7 @@ import { describeError } from '../forms/errors'
 import { ConfirmDialog } from '../shell/ConfirmDialog'
 import { Loading } from '../shell/Loading'
 import { useBootstrapModal } from '../shell/useBootstrapModal'
+import type { Attempt } from './attempts'
 import { MultiplierBadge } from './ChoresPage'
 import { formatDuration, type Chore, type Step } from './chores'
 
@@ -19,6 +20,7 @@ export function ChorePage() {
   const [error, setError] = useState<unknown>()
   const { ref: archiveDialogRef, show: showArchiveDialog, hide: hideArchiveDialog } = useBootstrapModal()
   const isParent = member?.role === 'parent'
+  const [starting, setStarting] = useState(false)
 
   useEffect(() => {
     api<Chore>(`/api/chores/${id}`).then(setChore, setError)
@@ -32,6 +34,18 @@ export function ChorePage() {
       navigate('/chores')
     } catch (e) {
       setError(e)
+    }
+  }
+
+  const start = async () => {
+    setStarting(true)
+    setError(undefined)
+    try {
+      const attempt = await api<Attempt>('/api/attempts', { method: 'POST', body: { choreId: id } })
+      navigate(`/attempts/${attempt.id}`)
+    } catch (e) {
+      setError(e)
+      setStarting(false)
     }
   }
 
@@ -83,6 +97,12 @@ export function ChorePage() {
             <StepItem key={index} step={step} />
           ))}
         </ol>
+
+        {member?.role === 'child' && !chore.archived && (
+          <button type="button" className="btn btn-primary btn-lg" disabled={starting} onClick={() => void start()}>
+            {t('attempts.start')}
+          </button>
+        )}
 
         {isParent && !chore.archived && (
           <div className="d-flex gap-2">

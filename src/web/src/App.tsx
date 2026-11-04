@@ -5,9 +5,11 @@ import { AuthProvider } from './auth/AuthProvider'
 import { RequireAuth, RequireParent } from './auth/RequireAuth'
 import { callbackPath } from './auth/userManager'
 import { ArchivedChoresPage } from './pages/ArchivedChoresPage'
+import { AttemptPage } from './pages/AttemptPage'
 import { ChoreFormPage } from './pages/ChoreFormPage'
 import { ChorePage } from './pages/ChorePage'
 import { ChoresPage } from './pages/ChoresPage'
+import { FamilySettingsPage } from './pages/FamilySettingsPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { MemberFormPage } from './pages/MemberFormPage'
@@ -26,6 +28,7 @@ export function AppRoutes({ userManager }: { userManager: UserManager }) {
           <Route index element={<HomePage />} />
           <Route path="/chores" element={<ChoresPage />} />
           <Route path="/chores/:id" element={<ChorePage />} />
+          <Route path="/attempts/:id" element={<AttemptPage />} />
           <Route element={<RequireParent />}>
             <Route path="/chores/new" element={<ChoreFormPage />} />
             <Route path="/chores/archived" element={<ArchivedChoresPage />} />
@@ -33,6 +36,7 @@ export function AppRoutes({ userManager }: { userManager: UserManager }) {
             <Route path="/members" element={<MembersPage />} />
             <Route path="/members/new" element={<MemberFormPage />} />
             <Route path="/members/:id" element={<MemberFormPage />} />
+            <Route path="/settings" element={<FamilySettingsPage />} />
           </Route>
         </Route>
         <Route path="*" element={<HomePage />} />

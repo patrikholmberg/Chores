@@ -6,6 +6,12 @@ namespace Chores.Domain.Families;
 public sealed class Family
 {
     public const int NameMaxLength = 100;
+    public const int DefaultBasePoints = 10;
+    public const int MinBasePoints = 1;
+    public const int MaxBasePoints = 1000;
+    public const int DefaultAttemptWindowDays = 7;
+    public const int MinAttemptWindowDays = 1;
+    public const int MaxAttemptWindowDays = 30;
 
     private readonly List<Member> _members = [];
 
@@ -14,6 +20,8 @@ public sealed class Family
         Id = id;
         Name = name;
         TimeZone = timeZone;
+        BasePoints = DefaultBasePoints;
+        AttemptWindow = TimeSpan.FromDays(DefaultAttemptWindowDays);
     }
 
     public Guid Id { get; private set; }
@@ -22,6 +30,12 @@ public sealed class Family
 
     /// <summary>Defines the Family Day for every day boundary, reminder and Settlement.</summary>
     public FamilyTimeZone TimeZone { get; private set; }
+
+    /// <summary>The unit value of one standard chore. Every other points quantity is a multiple of it.</summary>
+    public int BasePoints { get; private set; }
+
+    /// <summary>How long after its start a Chore Attempt may be completed before it is Abandoned. Whole days.</summary>
+    public TimeSpan AttemptWindow { get; private set; }
 
     /// <summary>Incremented by every change that can affect the last-Parent rule, so concurrent changes conflict.</summary>
     public int Revision { get; private set; }
@@ -88,6 +102,29 @@ public sealed class Family
 
         member.Remove(removedAt);
         Revision++;
+    }
+
+    /// <summary>
+    /// Changes the Family-wide settings. Settings are last-write-wins, so this does not increment <see cref="Revision"/>.
+    /// </summary>
+    public void ChangeSettings(int basePoints, int attemptWindowDays)
+    {
+        if (basePoints is < MinBasePoints or > MaxBasePoints)
+        {
+            throw new DomainRuleViolation(
+                FamilyErrorCodes.BasePointsOutOfRange,
+                $"Base Points must be a whole number from {MinBasePoints} to {MaxBasePoints}.");
+        }
+
+        if (attemptWindowDays is < MinAttemptWindowDays or > MaxAttemptWindowDays)
+        {
+            throw new DomainRuleViolation(
+                FamilyErrorCodes.AttemptWindowOutOfRange,
+                $"The attempt window must be {MinAttemptWindowDays} to {MaxAttemptWindowDays} days.");
+        }
+
+        BasePoints = basePoints;
+        AttemptWindow = TimeSpan.FromDays(attemptWindowDays);
     }
 
     private void EnsureAnotherParent(Member member)

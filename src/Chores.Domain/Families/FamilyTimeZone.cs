@@ -25,5 +25,9 @@ public sealed record FamilyTimeZone
             ? timeZone
             : throw new ArgumentException($"'{id}' is not an IANA time zone.", nameof(id));
 
+    /// <summary>The Family Day that <paramref name="instant"/> falls on.</summary>
+    public DateOnly DayOf(DateTimeOffset instant) =>
+        DateOnly.FromDateTime(TimeZoneInfo.ConvertTime(instant, TimeZoneInfo.FindSystemTimeZoneById(Id)).DateTime);
+
     public override string ToString() => Id;
 }

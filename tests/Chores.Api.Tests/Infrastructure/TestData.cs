@@ -1,6 +1,7 @@
 using Chores.Application.Common.Identity;
 using Chores.Application.Common.Persistence;
 using Chores.Application.Common.Tenancy;
+using Chores.Domain.ChoreAttempts;
 using Chores.Domain.ChoreLibrary;
 using Chores.Domain.Families;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,19 @@ public static class TestData
                 .CreateAsync(parent.Id, Username.Create(parent.Username), "second@example.com", parent.Password, CancellationToken.None);
         });
         return parent;
+    }
+
+    /// <summary>Adds a second Child to a seeded Family.</summary>
+    public static async Task<SeededMember> AddChildAsync(this IServiceProvider services, Guid familyId, string displayName = "Sibling")
+    {
+        var child = new SeededMember(Guid.CreateVersion7(), UniqueUsername("c"), ChildPassword, Role.Child);
+        await services.ChangeFamilyAsync(familyId, async (family, provider) =>
+        {
+            family.AddMember(child.Id, Username.Create(child.Username), displayName, Role.Child, null, PreferredLanguage.Swedish);
+            await provider.GetRequiredService<IMemberCredentials>()
+                .CreateAsync(child.Id, Username.Create(child.Username), null, child.Password, CancellationToken.None);
+        });
+        return child;
     }
 
     /// <summary>Seeds a Family with one Parent and one Child.</summary>
@@ -89,5 +103,38 @@ public static class TestData
         provider.GetRequiredService<IChoreRepository>().Add(chore);
         await provider.GetRequiredService<IUnitOfWork>().SaveChangesAsync(CancellationToken.None);
         return chore.Id;
+    }
+
+    /// <summary>
+    /// Starts an attempt of a seeded Chore for a Child at <paramref name="startedAt"/> (now by default), and when
+    /// <paramref name="complete"/> completes every Step a minute later. Seeding in the past stands in for moving the clock.
+    /// </summary>
+    public static async Task<Guid> SeedAttemptAsync(
+        this IServiceProvider services,
+        Guid familyId,
+        Guid childId,
+        Guid choreId,
+        DateTimeOffset? startedAt = null,
+        bool complete = false)
+    {
+        await using var scope = services.CreateAsyncScope();
+        var provider = scope.ServiceProvider;
+        using var _ = provider.GetRequiredService<TenantContext>().BeginScope(familyId);
+
+        var family = (await provider.GetRequiredService<IFamilyRepository>().GetCurrentAsync(CancellationToken.None))!;
+        var chore = (await provider.GetRequiredService<IChoreRepository>().GetAsync(choreId, CancellationToken.None))!;
+        var attempt = ChoreAttempt.Start(
+            Guid.CreateVersion7(), childId, chore, family.TimeZone, family.AttemptWindow, startedAt ?? DateTimeOffset.UtcNow);
+        if (complete)
+        {
+            foreach (var step in attempt.Steps)
+            {
+                attempt.CompleteStep(step.Position, attempt.StartedAt.AddMinutes(1));
+            }
+        }
+
+        provider.GetRequiredService<IChoreAttemptRepository>().Add(attempt);
+        await provider.GetRequiredService<IUnitOfWork>().SaveChangesAsync(CancellationToken.None);
+        return attempt.Id;
     }
 }

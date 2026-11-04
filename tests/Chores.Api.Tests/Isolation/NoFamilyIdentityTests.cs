@@ -1,5 +1,6 @@
 using Chores.Api.Tests.Infrastructure;
 using Chores.Application.Common.Persistence;
+using Chores.Domain.ChoreAttempts;
 using Chores.Domain.ChoreLibrary;
 using Chores.Domain.Families;
 using Chores.Infrastructure.Persistence;
@@ -17,7 +18,8 @@ public class NoFamilyIdentityTests(PostgresApiFactory factory)
     public async Task Nothing_family_owned_can_be_read()
     {
         var seeded = await factory.Services.SeedFamilyAsync();
-        await factory.Services.SeedChoreAsync(seeded.Id);
+        var choreId = await factory.Services.SeedChoreAsync(seeded.Id);
+        await factory.Services.SeedAttemptAsync(seeded.Id, seeded.Child.Id, choreId);
         await using var scope = factory.Services.CreateAsyncScope();
         var db = scope.ServiceProvider.GetRequiredService<ChoresDbContext>();
 
@@ -25,6 +27,9 @@ public class NoFamilyIdentityTests(PostgresApiFactory factory)
         Assert.False(await db.Members.AnyAsync(Ct));
         Assert.False(await db.Chores.AnyAsync(Ct));
         Assert.False(await db.Set<Step>().AnyAsync(Ct));
+        Assert.False(await db.ChoreAttempts.AnyAsync(Ct));
+        Assert.False(await db.Set<AttemptStep>().AnyAsync(Ct));
+        Assert.Empty(await scope.ServiceProvider.GetRequiredService<IChoreAttemptRepository>().ListAsync(null, DateOnly.MinValue, Ct));
         Assert.Empty(await scope.ServiceProvider.GetRequiredService<IChoreRepository>().ListAsync(archived: false, Ct));
         Assert.Null(await scope.ServiceProvider.GetRequiredService<IFamilyRepository>().GetCurrentAsync(Ct));
     }

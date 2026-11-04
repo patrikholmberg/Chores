@@ -38,6 +38,8 @@ app.MapConnectEndpoints();
 app.MapMeEndpoints();
 app.MapMemberEndpoints();
 app.MapChoreEndpoints();
+app.MapAttemptEndpoints();
+app.MapFamilySettingsEndpoints();
 
 app.Run();
 

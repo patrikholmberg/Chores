@@ -1,3 +1,4 @@
+using System.Globalization;
 using Chores.Domain.Families;
 
 namespace Chores.Domain.Tests.Families;
@@ -45,6 +46,25 @@ public class FamilyTimeZoneTests
     [InlineData("W. Europe Standard Time")]
     public void Rejects_unknown_and_windows_zones(string? id) =>
         Assert.False(FamilyTimeZone.TryCreate(id, out _));
+
+    [Theory]
+    // Winter (CET, UTC+1).
+    [InlineData("2026-01-15T22:59:00Z", "2026-01-15")]
+    [InlineData("2026-01-15T23:00:00Z", "2026-01-16")]
+    // Summer (CEST, UTC+2).
+    [InlineData("2026-07-01T21:59:00Z", "2026-07-01")]
+    [InlineData("2026-07-01T22:00:00Z", "2026-07-02")]
+    // Spring forward on 29 March: the evening is already CEST.
+    [InlineData("2026-03-29T00:59:00Z", "2026-03-29")]
+    [InlineData("2026-03-29T21:59:00Z", "2026-03-29")]
+    [InlineData("2026-03-29T22:00:00Z", "2026-03-30")]
+    // Fall back on 25 October: the evening is already CET.
+    [InlineData("2026-10-25T22:59:00Z", "2026-10-25")]
+    [InlineData("2026-10-25T23:00:00Z", "2026-10-26")]
+    public void DayOf_uses_the_family_time_zone(string instant, string expected) =>
+        Assert.Equal(
+            DateOnly.Parse(expected, CultureInfo.InvariantCulture),
+            FamilyTimeZone.Create("Europe/Stockholm").DayOf(DateTimeOffset.Parse(instant, CultureInfo.InvariantCulture)));
 }
 
 public class PreferredLanguageTests

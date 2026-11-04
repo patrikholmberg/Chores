@@ -14,6 +14,7 @@ internal static class AuthSetup
 {
     public const string MemberPolicy = "Member";
     public const string ParentPolicy = "Parent";
+    public const string ChildPolicy = "Child";
 
     public static readonly TimeSpan AccessTokenLifetime = TimeSpan.FromMinutes(15);
     public static readonly TimeSpan ParentSessionLifetime = TimeSpan.FromDays(30);
@@ -51,7 +52,12 @@ internal static class AuthSetup
                 .AddAuthenticationSchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
                 .RequireAuthenticatedUser()
                 .RequireClaim(ChoresClaims.FamilyId)
-                .RequireClaim(Claims.Role, ChoresClaims.RoleValue(Role.Parent)));
+                .RequireClaim(Claims.Role, ChoresClaims.RoleValue(Role.Parent)))
+            .AddPolicy(ChildPolicy, policy => policy
+                .AddAuthenticationSchemes(OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .RequireClaim(ChoresClaims.FamilyId)
+                .RequireClaim(Claims.Role, ChoresClaims.RoleValue(Role.Child)));
 
         services.AddOpenIddict()
             .AddServer(server =>

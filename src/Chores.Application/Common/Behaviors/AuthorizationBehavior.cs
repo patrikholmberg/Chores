@@ -6,8 +6,8 @@ using Mediator;
 namespace Chores.Application.Common.Behaviors;
 
 /// <summary>
-/// Refuses <see cref="IParentOnly"/> messages from anyone but a Parent, before validation or the handler run, so
-/// the rule holds whichever host sends the message.
+/// Refuses <see cref="IParentOnly"/> messages from anyone but a Parent and <see cref="IChildOnly"/> messages from anyone
+/// but a Child, before validation or the handler run, so the rules hold whichever host sends the message.
 /// </summary>
 public sealed class AuthorizationBehavior<TMessage, TResponse>(ICurrentMember currentMember)
     : IPipelineBehavior<TMessage, TResponse>
@@ -21,6 +21,11 @@ public sealed class AuthorizationBehavior<TMessage, TResponse>(ICurrentMember cu
         if (message is IParentOnly && currentMember.Role != Role.Parent)
         {
             throw new ForbiddenException("Only a Parent can do this.");
+        }
+
+        if (message is IChildOnly && currentMember.Role != Role.Child)
+        {
+            throw new ForbiddenException("Only a Child can do this.");
         }
 
         return next(message, cancellationToken);
