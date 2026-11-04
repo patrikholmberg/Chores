@@ -26,6 +26,6 @@ export const pwaOptions: Partial<VitePWAOptions> = {
     globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
     navigateFallback: '/index.html',
     // Server routes must never be answered by the cached app shell.
-    navigateFallbackDenylist: [/^\/api\//, /^\/connect\//, /^\/health/, /^\/alive/],
+    navigateFallbackDenylist: [/^\/api\//, /^\/connect\//, /^\/\.well-known\//, /^\/health/, /^\/alive/],
   },
 }

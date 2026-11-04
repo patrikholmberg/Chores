@@ -12,7 +12,7 @@ public static class DependencyInjection
         services.AddMediator((MediatorOptions options) =>
         {
             options.ServiceLifetime = ServiceLifetime.Scoped;
-            options.PipelineBehaviors = [typeof(ValidationBehavior<,>)];
+            options.PipelineBehaviors = [typeof(AuthorizationBehavior<,>), typeof(ValidationBehavior<,>)];
         });
 
         services.AddValidatorsFromAssembly(typeof(DependencyInjection).Assembly, includeInternalTypes: true);

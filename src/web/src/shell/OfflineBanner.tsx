@@ -10,7 +10,7 @@ export function OfflineBanner() {
   }
 
   return (
-    <p role="status" className="offline-banner">
+    <p role="status" className="alert alert-warning py-2 mb-3">
       {t('offline.message')}
     </p>
   )

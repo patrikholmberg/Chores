@@ -9,5 +9,115 @@
     "label": "Language",
     "sv": "Svenska",
     "en": "English"
+  },
+  "common": {
+    "loading": "Loading…",
+    "close": "Close",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "nav": {
+    "home": "Home",
+    "members": "Members",
+    "toggle": "Show menu"
+  },
+  "auth": {
+    "signOut": "Sign out",
+    "callbackFailed": "Signing in did not complete.",
+    "tryAgain": "Try again"
+  },
+  "login": {
+    "title": "Sign in",
+    "submit": "Sign in",
+    "noFamily": "New here?",
+    "createFamily": "Create a family"
+  },
+  "signup": {
+    "title": "Create your family",
+    "intro": "You become the family's first parent and can then add the rest of the family.",
+    "familySection": "Family",
+    "parentSection": "You",
+    "usernameAvailable": "The username is available.",
+    "submit": "Create family",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in"
+  },
+  "fields": {
+    "username": "Username",
+    "usernameHint": "3–32 characters: letters a–z, digits, '.', '-' or '_'. Used to sign in.",
+    "password": "Password",
+    "passwordHint": "At least {{min}} characters.",
+    "displayName": "Display name",
+    "displayNameHint": "Optional. Shown in the app instead of the username.",
+    "email": "Email",
+    "emailHint": "Used to reset your password.",
+    "familyName": "Family name",
+    "timeZone": "Time zone",
+    "role": "Role"
+  },
+  "roles": {
+    "parent": "Parent",
+    "child": "Child"
+  },
+  "members": {
+    "title": "Members",
+    "add": "Add member",
+    "back": "Members",
+    "addTitle": "Add member",
+    "editTitle": "Edit {{name}}",
+    "newParentPassword": "New password (required for a parent)",
+    "setPasswordTitle": "Set a new password",
+    "passwordSaved": "The password was changed. They have been signed out on all devices.",
+    "newPassword": "New password",
+    "setPasswordHint": "At least {{min}} characters. They will be signed out on all devices.",
+    "setPassword": "Set password",
+    "remove": "Remove member",
+    "removeTitle": "Remove {{name}}?",
+    "removeBody": "They can no longer sign in, and their username becomes free. Their history is kept."
+  },
+  "home": {
+    "greeting": "Hi {{name}}!",
+    "family": "Family: {{family}}"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "rate_limited": "Too many attempts. Wait a while and try again.",
+    "required": "This field is required.",
+    "too_long": "This is too long.",
+    "username": {
+      "invalid": "Use 3–32 characters: letters a–z, digits, '.', '-' or '_'.",
+      "taken": "That username is already taken."
+    },
+    "password": {
+      "too_short": "The password must be at least {{min}} characters.",
+      "incorrect": "The current password is incorrect."
+    },
+    "email": {
+      "invalid": "Enter a valid email address.",
+      "not_allowed": "A child cannot have an email address."
+    },
+    "time_zone": {
+      "invalid": "Choose a valid time zone."
+    },
+    "language": {
+      "invalid": "Choose Swedish or English."
+    },
+    "role": {
+      "invalid": "Choose parent or child."
+    },
+    "captcha": {
+      "invalid": "Please complete the check that you are not a robot."
+    },
+    "signin": {
+      "failed": "The username or password is incorrect."
+    },
+    "member": {
+      "last_parent": "A family must keep at least one parent.",
+      "not_found": "That member no longer exists.",
+      "email_required": "A parent needs an email address.",
+      "email_not_allowed": "A child cannot have an email address."
+    },
+    "concurrency_conflict": "Someone else changed this at the same time. Reload and try again.",
+    "forbidden": "Only a parent can do this."
   }
 }

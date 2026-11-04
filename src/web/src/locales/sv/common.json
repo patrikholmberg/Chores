@@ -9,5 +9,115 @@
     "label": "Språk",
     "sv": "Svenska",
     "en": "English"
+  },
+  "common": {
+    "loading": "Laddar…",
+    "close": "Stäng",
+    "cancel": "Avbryt",
+    "save": "Spara"
+  },
+  "nav": {
+    "home": "Hem",
+    "members": "Medlemmar",
+    "toggle": "Visa meny"
+  },
+  "auth": {
+    "signOut": "Logga ut",
+    "callbackFailed": "Inloggningen blev inte klar.",
+    "tryAgain": "Försök igen"
+  },
+  "login": {
+    "title": "Logga in",
+    "submit": "Logga in",
+    "noFamily": "Ny här?",
+    "createFamily": "Skapa en familj"
+  },
+  "signup": {
+    "title": "Skapa din familj",
+    "intro": "Du blir familjens första förälder och kan sedan lägga till resten av familjen.",
+    "familySection": "Familj",
+    "parentSection": "Du",
+    "usernameAvailable": "Användarnamnet är ledigt.",
+    "submit": "Skapa familj",
+    "haveAccount": "Har du redan ett konto?",
+    "signIn": "Logga in"
+  },
+  "fields": {
+    "username": "Användarnamn",
+    "usernameHint": "3–32 tecken: bokstäverna a–z, siffror, '.', '-' eller '_'. Används för att logga in.",
+    "password": "Lösenord",
+    "passwordHint": "Minst {{min}} tecken.",
+    "displayName": "Visningsnamn",
+    "displayNameHint": "Valfritt. Visas i appen i stället för användarnamnet.",
+    "email": "E-post",
+    "emailHint": "Används för att återställa ditt lösenord.",
+    "familyName": "Familjens namn",
+    "timeZone": "Tidszon",
+    "role": "Roll"
+  },
+  "roles": {
+    "parent": "Förälder",
+    "child": "Barn"
+  },
+  "members": {
+    "title": "Medlemmar",
+    "add": "Lägg till medlem",
+    "back": "Medlemmar",
+    "addTitle": "Lägg till medlem",
+    "editTitle": "Ändra {{name}}",
+    "newParentPassword": "Nytt lösenord (krävs för en förälder)",
+    "setPasswordTitle": "Sätt ett nytt lösenord",
+    "passwordSaved": "Lösenordet är ändrat. Hen har loggats ut på alla enheter.",
+    "newPassword": "Nytt lösenord",
+    "setPasswordHint": "Minst {{min}} tecken. Hen loggas ut på alla enheter.",
+    "setPassword": "Sätt lösenord",
+    "remove": "Ta bort medlem",
+    "removeTitle": "Ta bort {{name}}?",
+    "removeBody": "Hen kan inte längre logga in och användarnamnet blir ledigt. Historiken sparas."
+  },
+  "home": {
+    "greeting": "Hej {{name}}!",
+    "family": "Familj: {{family}}"
+  },
+  "errors": {
+    "generic": "Något gick fel. Försök igen.",
+    "rate_limited": "För många försök. Vänta en stund och försök igen.",
+    "required": "Fältet måste fyllas i.",
+    "too_long": "Det här är för långt.",
+    "username": {
+      "invalid": "Använd 3–32 tecken: bokstäverna a–z, siffror, '.', '-' eller '_'.",
+      "taken": "Användarnamnet är redan upptaget."
+    },
+    "password": {
+      "too_short": "Lösenordet måste vara minst {{min}} tecken.",
+      "incorrect": "Det nuvarande lösenordet är fel."
+    },
+    "email": {
+      "invalid": "Ange en giltig e-postadress.",
+      "not_allowed": "Ett barn kan inte ha en e-postadress."
+    },
+    "time_zone": {
+      "invalid": "Välj en giltig tidszon."
+    },
+    "language": {
+      "invalid": "Välj svenska eller engelska."
+    },
+    "role": {
+      "invalid": "Välj förälder eller barn."
+    },
+    "captcha": {
+      "invalid": "Gör kontrollen att du inte är en robot."
+    },
+    "signin": {
+      "failed": "Användarnamnet eller lösenordet är fel."
+    },
+    "member": {
+      "last_parent": "En familj måste ha minst en förälder.",
+      "not_found": "Medlemmen finns inte längre.",
+      "email_required": "En förälder behöver en e-postadress.",
+      "email_not_allowed": "Ett barn kan inte ha en e-postadress."
+    },
+    "concurrency_conflict": "Någon annan ändrade samtidigt. Ladda om och försök igen.",
+    "forbidden": "Bara en förälder kan göra det här."
   }
 }
