@@ -18,7 +18,7 @@ describe('Member management', () => {
 
   it('adds a child', async () => {
     const user = userEvent.setup()
-    const api = fakeApi({ 'GET /api/members': [] })
+    const api = fakeApi({ 'GET /api/members': [], 'GET /api/usernames/nova/availability': { available: true } })
     renderApp({ route: '/members/new', auth: fakeAuth(parent, { api }) })
 
     await user.type(screen.getByLabelText('Username'), 'nova')

@@ -28,6 +28,9 @@ async function fillIn(user: ReturnType<typeof userEvent.setup>) {
   await user.type(screen.getByLabelText('Email'), 'alex@example.com')
 }
 
+// Typing a username triggers the debounced availability check, which every test that fills in the form must answer.
+const available = { 'GET /api/usernames/alex/availability': { available: true } }
+
 describe('SignupPage', () => {
   afterEach(() => vi.restoreAllMocks())
 
@@ -52,6 +55,7 @@ describe('SignupPage', () => {
   it('shows server validation errors on the right fields', async () => {
     const user = userEvent.setup()
     const api = fakeApi({
+      ...available,
       'POST /api/families': () => {
         throw new ApiError(400, 'One or more validation errors occurred.', undefined, {
           Email: ['email.invalid'],
@@ -72,7 +76,7 @@ describe('SignupPage', () => {
 
   it('creates the family with the CAPTCHA solution and signs the parent in', async () => {
     const user = userEvent.setup()
-    const api = fakeApi({})
+    const api = fakeApi(available)
     const { auth } = renderApp({ route: '/signup', auth: fakeAuth(undefined, { api }) })
 
     await fillIn(user)
